@@ -4,13 +4,11 @@ import { tempMovieData, tempWatchedData } from "./movieData";
 
 const average = (arr) => arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-function Navbar({movies}) {
+function Navbar({ children }) {
 
   return (
     <nav className="nav-bar">
-      <Logo/>
-      <Search />
-      <NumResults movies={movies} />
+      {children}
     </nav>
   )
 }
@@ -36,13 +34,13 @@ function Search(params) {
     <input className="search" type="text" placeholder="Search movies..." value={query} onChange={(e) => setQuery(e.target.value)}/>
   )
 }
-function ListBox({movies}) {
+function ListBox({children}) {
   const [isOpen1, setIsOpen1] = useState(true);
   return (
     <div className="box">
       <button className="btn-toggle" onClick={() => setIsOpen1((open) => !open)} > {isOpen1 ? "-" : "+"} </button>
       {isOpen1 && (
-        <MovieList movies={movies} />
+       children
       )}
     </div>
   )
@@ -135,11 +133,10 @@ function WatchedSummary({watched}) {
     </div>
   )
 }
-function Main({movies}) {
+function Main({children}) {
   return (
     <main className="main">
-        <ListBox movies={movies} />
-        <WatchBox />
+       {children}
       </main>
   )
 }
@@ -148,8 +145,17 @@ function App() {
   const [movies, setMovies] = useState(tempMovieData);
   return (
     <>
-      <Navbar movies={movies} />
-      <Main movies={movies} />
+      <Navbar>
+        <Logo/>
+        <Search />
+        <NumResults movies={movies} />
+      </Navbar>
+      <Main>
+        <ListBox>
+          <MovieList movies={movies} />
+        </ListBox>
+        <WatchBox />
+      </Main>
     </>
   );
 }
