@@ -4,19 +4,19 @@ import { tempMovieData, tempWatchedData } from "./movieData";
 
 const average = (arr) => arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-function Navbar(params) {
+function Navbar({movies}) {
 
   return (
     <nav className="nav-bar">
       <Logo/>
       <Search />
-      <NumResults />
+      <NumResults movies={movies} />
     </nav>
   )
 }
-function NumResults(params) {
+function NumResults({movies}) {
   return (
-    <p className="num-results"> Found <strong>x</strong> results </p>
+    <p className="num-results"> Found <strong>{movies.length}</strong> results </p>
   )
 }
 
@@ -36,23 +36,22 @@ function Search(params) {
     <input className="search" type="text" placeholder="Search movies..." value={query} onChange={(e) => setQuery(e.target.value)}/>
   )
 }
-function ListBox(params) {
+function ListBox({movies}) {
   const [isOpen1, setIsOpen1] = useState(true);
-
   return (
     <div className="box">
       <button className="btn-toggle" onClick={() => setIsOpen1((open) => !open)} > {isOpen1 ? "-" : "+"} </button>
       {isOpen1 && (
-        <MovieList />
+        <MovieList movies={movies} />
       )}
     </div>
   )
 }
-function MovieList(params) {
-  const [movies, setMovies] = useState(tempMovieData);
+function MovieList({movies}) {
+
   return (
     <ul className="list">
-      {movies?.map((movie) => (
+      {movies.map((movie) => (
         <Movie movie={movie} key={movie.imdbID} />
       ))}
     </ul>
@@ -136,21 +135,21 @@ function WatchedSummary({watched}) {
     </div>
   )
 }
-function Main(params) {
+function Main({movies}) {
   return (
     <main className="main">
-        <ListBox/>
+        <ListBox movies={movies} />
         <WatchBox />
       </main>
   )
 }
 
 function App() {
-
+  const [movies, setMovies] = useState(tempMovieData);
   return (
     <>
-      <Navbar/>
-      <Main />
+      <Navbar movies={movies} />
+      <Main movies={movies} />
     </>
   );
 }
