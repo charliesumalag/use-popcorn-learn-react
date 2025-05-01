@@ -1,4 +1,4 @@
-import './App.css';
+import './css/App.css';
 import { useEffect, useState } from "react";
 import Navbar from "./Components/Navbar";
 import Logo from "./Components/Logo";
@@ -12,10 +12,11 @@ import MovieDetails from "./Components/MovieDetails";
 import ErrorMessage from "./Components/ErrorMessage";
 import WatchedSummary from "./Components/WatchedSummary";
 import WatchedMovieList from "./Components/WatchedMovieList";
-import { tempMovieData, tempWatchedData } from "./movieData";
+
+const KEY = "f84fc31d";
 
 function App() {
-  const [movies, setMovies] = useState(tempMovieData);
+  const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
   const [watched, setWatched] = useState([]);
@@ -74,7 +75,6 @@ function App() {
       </Navbar>
       <Main>
         <Box>
-          {/* {isLoading ? <Loader /> : <MovieList movies={movies} />} */}
           {isLoading && <Loader />}
           {!isLoading && !error && <MovieList movies={movies} onSelectMovie={handleSelectMovie} />}
           {error && <ErrorMessage message={error} />}

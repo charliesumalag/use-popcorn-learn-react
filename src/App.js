@@ -1,6 +1,6 @@
-import './App.css';
+import './css/App.css';
 import { useState } from "react";
-import { tempMovieData, tempWatchedData } from "./movieData";
+
 
 const average = (arr) => arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
@@ -142,8 +142,8 @@ function Main({children}) {
 }
 
 function App() {
-  const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
   return (
     <>
       <Navbar>

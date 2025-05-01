@@ -1,6 +1,5 @@
 import React from 'react'
-import Movie from "./Components/Movie";
-
+import Movie from "./Movie";
 
 const MovieList = ({movies, onSelectMovie}) => {
     return (

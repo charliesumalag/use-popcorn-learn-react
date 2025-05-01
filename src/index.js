@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import StarRating from "./StarRating";
-import StarRatingVersionOne from './StarRatingVersionOne';
-import ChallengeTextExpander from './ChallengeTextExpander';
+
 // import './index.css';
 import App from './App';
 import AppVersion from './AppVersion';

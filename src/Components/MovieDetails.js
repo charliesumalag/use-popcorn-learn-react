@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react'
+import Loader from "./Loader";
+import StarRating from "./StarRating";
 
 const KEY = "f84fc31d";
 
