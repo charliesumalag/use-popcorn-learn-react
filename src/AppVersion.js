@@ -14,14 +14,17 @@ import WatchedSummary from "./Components/WatchedSummary";
 import WatchedMovieList from "./Components/WatchedMovieList";
 
 const KEY = "f84fc31d";
+const query = 'test';
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState('test');
   const [selectedId, setSelectedId] = useState(null);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+
 
   function  handleAddWatched(movie) {
     setWatched(watched => [...watched, movie]);
@@ -33,6 +36,12 @@ function App() {
 
   function handleSelectMovie(id) {
     setSelectedId(selectedId => id === selectedId ? null : id);
+  }
+
+  function handleDeleteWatched(id) {
+    console.log(id);
+
+    setWatched(watched => watched.filter(movie => movie.imdbID !== id));
   }
 
   useEffect(function(params) {
@@ -76,15 +85,15 @@ function App() {
       <Main>
         <Box>
           {isLoading && <Loader />}
-          {!isLoading && !error && <MovieList movies={movies} onSelectMovie={handleSelectMovie} />}
+          {!isLoading && !error && <MovieList movies={movies} onSelectMovie={handleSelectMovie} watched={watched} />}
           {error && <ErrorMessage message={error} />}
         </Box>
         <Box>
           {
-            selectedId ? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie} onAddWatched={handleAddWatched}  /> :
+            selectedId ? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie} onAddWatched={handleAddWatched} watched={watched}  /> :
             <>
               <WatchedSummary watched={watched}  />
-              <WatchedMovieList watched={watched} />
+              <WatchedMovieList onDeleteWatched={handleDeleteWatched} watched={watched} />
             </>
           }
         </Box>

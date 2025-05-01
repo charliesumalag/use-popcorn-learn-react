@@ -16,11 +16,12 @@ const containerStyle = {
   }
 
 
-const StarRating = ({ maxRating = 5, color = '#fcc419', size = 48 }) => {
+const StarRating = ({ maxRating = 5, color = '#fcc419', size = 48, onSetRating  }) => {
   const [tempRating, setTempRating] = useState(0);
     const [rating, setRating] = useState(0);
     const handleRating = (i) => () => {
       setRating(i);
+      onSetRating(i);
     }
     const textStyle = {
       lineHeight: '1',
@@ -42,7 +43,6 @@ const StarRating = ({ maxRating = 5, color = '#fcc419', size = 48 }) => {
                 full={tempRating ? tempRating >= i + 1 : rating >= i + 1 }
                 color={color}
                 size={size}
-
               />)
           )}
         </div>

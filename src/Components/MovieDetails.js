@@ -4,11 +4,13 @@ import StarRating from "./StarRating";
 
 const KEY = "f84fc31d";
 
-const MovieDetails = ({selectedId, onCloseMovie, onAddWatched }) => {
+const MovieDetails = ({selectedId, onCloseMovie, onAddWatched, watched }) => {
   const [movie, setMovie] = useState({});
    const [isLoading, setIsLoading] = useState(false);
    const [userRating, setUserRating] = useState('');
 
+   const isWatched = watched.map(movie => movie.imdbID).includes(selectedId);
+   const watchedUserRating = watched.find((movie) => movie.imdbID === selectedId)?.userRating;
 
    const {Title: title, Year: year, Poster: poster, Runtime: runtime, imdbRating, Plot: plot, Released: released, Actors: actors, Director: director, Genre: genre} = movie;
 
@@ -21,7 +23,6 @@ const MovieDetails = ({selectedId, onCloseMovie, onAddWatched }) => {
        imdbRating: Number(imdbRating),
        runtime: Number(runtime.split(" ").at(0)),
        userRating,
-
      }
      onAddWatched(newWatchedMovie);
      onCloseMovie();
@@ -56,8 +57,14 @@ const MovieDetails = ({selectedId, onCloseMovie, onAddWatched }) => {
 
          <section>
            <div className='rating'>
-             <StarRating maxRating={10} size={24}  onSetRating={setUserRating} />
-            { userRating > 0 && <button onClick={handleAdd} className='btn-add'>+ Add to list</button>}
+          { !isWatched ?
+            <>
+              <StarRating maxRating={10} size={24}  onSetRating={setUserRating} />
+              { userRating > 0 && (<button onClick={handleAdd} className='btn-add'>+ Add to list</button>)}
+            </>
+            :
+            <p>You rated this movie {watchedUserRating} <span>⭐</span>  </p>
+          }
            </div>
            <p><em>{plot}</em></p>
            <p>Starring {actors}</p>
