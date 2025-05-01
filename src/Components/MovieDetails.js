@@ -28,6 +28,10 @@ const MovieDetails = ({selectedId, onCloseMovie, onAddWatched, watched }) => {
      onCloseMovie();
    }
 
+   useEffect(() => {
+    document.title = `Movie : ${title}`;
+   },[title]);
+
 
    useEffect(() => {
      async function getMovieDetails(params) {
