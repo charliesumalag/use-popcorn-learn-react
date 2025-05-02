@@ -14,11 +14,10 @@ import WatchedSummary from "./Components/WatchedSummary";
 import WatchedMovieList from "./Components/WatchedMovieList";
 
 const KEY = "f84fc31d";
-const query = 'test';
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('test');
+  const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -87,6 +86,8 @@ function App() {
     }
 
   },[query]);
+
+
   return (
     <>
       <Navbar>

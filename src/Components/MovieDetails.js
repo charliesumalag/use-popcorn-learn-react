@@ -28,6 +28,19 @@ const MovieDetails = ({selectedId, onCloseMovie, onAddWatched, watched }) => {
      onCloseMovie();
    }
 
+
+    useEffect(() => {
+      function callback(e) {
+        if(e.code === 'Escape'){
+          onCloseMovie();
+        }
+      }
+      document.addEventListener('keydown',callback)
+      return function (params) {
+        document.removeEventListener('keydown' , callback);
+      }
+    },[onCloseMovie]);
+
    useEffect(() => {
     if(!title) return;
     document.title = `Movie : ${title}`;
