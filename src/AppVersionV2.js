@@ -19,13 +19,16 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
-  const [watched, setWatched] = useState([]);
+  // const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [watched, setWatched] = useState(() => {
+    const storedValue = localStorage.getItem('watched');
+    return JSON.parse(storedValue);
+  });
 
-  function  handleAddWatched(movie) {
-    setWatched(watched => [...watched, movie]);
-  }
+
+
 
   function handleCloseMovie(params) {
     setSelectedId(null);
@@ -43,9 +46,6 @@ function App() {
 
   useEffect(function(params) {
     const controller =  new AbortController();
-
-
-
     async function fetchMovies () {
       try{
         setError('')
@@ -85,6 +85,15 @@ function App() {
 
   },[query]);
 
+
+  useEffect(() => {
+    localStorage.setItem('watched' , JSON.stringify(watched));
+   },[watched])
+
+   function  handleAddWatched(movie) {
+    setWatched(watched => [...watched, movie]);
+    console.log('new saved data to watched');
+  }
 
   return (
     <>

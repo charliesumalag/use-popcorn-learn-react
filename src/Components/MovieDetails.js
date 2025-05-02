@@ -12,6 +12,7 @@ const MovieDetails = ({selectedId, onCloseMovie, onAddWatched, watched }) => {
    const isWatched = watched.map(movie => movie.imdbID).includes(selectedId);
    const watchedUserRating = watched.find((movie) => movie.imdbID === selectedId)?.userRating;
 
+
    const {Title: title, Year: year, Poster: poster, Runtime: runtime, imdbRating, Plot: plot, Released: released, Actors: actors, Director: director, Genre: genre} = movie;
 
    function handleAdd(params) {
@@ -27,7 +28,6 @@ const MovieDetails = ({selectedId, onCloseMovie, onAddWatched, watched }) => {
      onAddWatched(newWatchedMovie);
      onCloseMovie();
    }
-
 
     useEffect(() => {
       function callback(e) {
