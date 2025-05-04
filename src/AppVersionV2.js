@@ -12,6 +12,7 @@ import MovieDetails from "./Components/MovieDetails";
 import ErrorMessage from "./Components/ErrorMessage";
 import WatchedSummary from "./Components/WatchedSummary";
 import WatchedMovieList from "./Components/WatchedMovieList";
+import { useLocalStorageState } from './useLocalStorageState';
 
 const KEY = "f84fc31d";
 
@@ -19,15 +20,10 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
-  // const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const [watched, setWatched] = useState(() => {
-    const storedValue = localStorage.getItem('watched');
-    return JSON.parse(storedValue);
-  });
 
-
+  const [watched, setWatched] = useLocalStorageState([], 'watched');
 
 
   function handleCloseMovie(params) {
@@ -85,12 +81,7 @@ function App() {
 
   },[query]);
 
-
-  useEffect(() => {
-    localStorage.setItem('watched' , JSON.stringify(watched));
-   },[watched])
-
-   function  handleAddWatched(movie) {
+  function  handleAddWatched(movie) {
     setWatched(watched => [...watched, movie]);
     console.log('new saved data to watched');
   }
