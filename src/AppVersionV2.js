@@ -25,7 +25,6 @@ function App() {
 
   const [watched, setWatched] = useLocalStorageState([], 'watched');
 
-
   function handleCloseMovie(params) {
     setSelectedId(null);
   }
@@ -36,7 +35,6 @@ function App() {
 
   function handleDeleteWatched(id) {
     console.log(id);
-
     setWatched(watched => watched.filter(movie => movie.imdbID !== id));
   }
 
